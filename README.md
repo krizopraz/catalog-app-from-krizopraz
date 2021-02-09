@@ -1,5 +1,5 @@
 # winelectron
-
+Katalaog Uygulaması Vue.js-Electron.js-Lowdb birleşimi Betada
 ## Project setup
 ```
 npm install
