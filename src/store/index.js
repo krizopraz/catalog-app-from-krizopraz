@@ -1,6 +1,7 @@
 import { ipcRenderer } from 'electron'
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, { Store } from 'vuex'
+const _ = require('lodash')
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
@@ -27,11 +28,14 @@ export default new Vuex.Store({
     removeFromDb(state,ID){
  //     console.log(ID)
       ipcRenderer.send('removeItem',ID)
-      ipcRenderer.on('returned3',(event,arg)=>{console.log(arg)})
-    }
-  },
+      ipcRenderer.on('returned3',(event,arg)=>{
+        var first =  _.find(state.returnitems,{id:ID})
+        var second = _.assign(first,{active:false})
+        return second
+    })
+  }},
   actions: {
   },
   modules: {
   }
-})
+  })
