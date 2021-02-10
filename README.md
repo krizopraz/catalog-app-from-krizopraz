@@ -1,19 +1,2 @@
-# winelectron
-Katalaog Uygulaması Vue.js-Electron.js-Lowdb birleşimi Betada
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Catalog App -> Beta
+I'm creating a cataog app with Electron.js , Vue.js , Lowdb
