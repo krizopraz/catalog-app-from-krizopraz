@@ -13,8 +13,8 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1920 ,
+    height: 1080,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -23,7 +23,7 @@ async function createWindow() {
     },
     show:false
   })
-  win.once('ready-to-show',()=>{win.show()})
+  win.once('ready-to-show',()=>{win.show();extraWindow()})
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
@@ -35,6 +35,15 @@ async function createWindow() {
   }
 }
 
+async function extraWindow(){
+  const extra =  new BrowserWindow({
+    width: 500,
+    height: 700,
+    webPreferences:{
+      nodeIntegration:process.env.ELECTRON_NODE_INTEGRATION
+    }
+  })
+}
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
@@ -100,8 +109,10 @@ function dbId(){
 function dbEntry(arg1,arg2){
    db.read()
    var itemid = dbId()
-   db.get('users').push({id:itemid,name:arg1,country:arg2,active:true}).write()
-   db.read()
+   if (!_.isEmpty(arg1) || !_.isEmpty(arg2)) {
+     db.get('users').push({id:itemid,name:arg1,country:arg2,active:true}).write()
+     db.read()
+   }
 
 }
 function dbQuerry(arg1,arg2) {

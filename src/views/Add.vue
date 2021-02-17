@@ -2,15 +2,13 @@
   <div class='add'>
     <form v-on:submit.prevent action="">
       <div>
-        <label for="name2">Name</label><br>
-        <input v-model="name" type="text" name="name2" id="name2">
+        <vs-input label-placeholder='Name' v-model="name" type="text" name="name2" id="name2"/>
       </div>
       <br>
       <div>
-        <label  for="country2">Country</label><br>
-        <input v-model="country" type="text" name='country2' id='country2'>
+        <vs-input label-placeholder='Country' v-model="country" type="text" name='country2' id='country2'/><br>
       </div>
-      <button v-on:click='addDb' type="submit">Ekle</button>
+      <vs-button v-on:click='addDb' type="filled">Ekle</vs-button>
     </form>
   </div>
 </template>
@@ -23,8 +21,9 @@ store:store,
 data(){return{name:'',country:''}},
 methods:{
   addDb(){
-    
     store.commit('addToDatabase',{name:this.name,country:this.country})
+    this.name=''
+    this.country=''
   }
 }
 
@@ -32,6 +31,8 @@ methods:{
 
 </script>
 
-<style>
-
+<style scoped>
+  *{
+    margin:auto;
+  }
 </style>

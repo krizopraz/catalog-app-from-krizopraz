@@ -1,8 +1,15 @@
 <template>
   <div class="search">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <form-querry/>
-    <form-table/>
+    <vs-divider/>
+    <vs-row>
+      <vs-col vs-w='5'>
+      <form-querry/>
+      </vs-col>
+      <vs-col vs-w='1'></vs-col>
+      <vs-col vs-w='6'>
+      <form-table/>
+      </vs-col>
+    </vs-row>
   </div>
 </template>
 
