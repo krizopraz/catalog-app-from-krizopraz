@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Search</router-link> |
-      <router-link to="/add">Add</router-link>
-    </div>
-    <router-view/>
+     <div>
+      <div id="nav">
+        <router-link to="/">Search</router-link> |
+        <router-link to="/settings">Settings</router-link>
+      </div>
+      <router-view/>
+      </div>
+
   </div>
 </template>
 

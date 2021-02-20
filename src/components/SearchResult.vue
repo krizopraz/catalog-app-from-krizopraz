@@ -16,7 +16,6 @@
           </template>
       </vs-table>
   <br><br>
-  
   </div>
 </template>
 

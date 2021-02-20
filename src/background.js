@@ -16,14 +16,14 @@ async function createWindow() {
     width: 1920 ,
     height: 1080,
     webPreferences: {
-      
+    
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     },
     show:false
   })
-  win.once('ready-to-show',()=>{win.show();extraWindow()})
+  win.once('ready-to-show',()=>{win.show()})
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
@@ -31,19 +31,10 @@ async function createWindow() {
   } else {
     createProtocol('app')
     // Load the index.html when not in development
-    win.loadURL('app://./index.html')
+    if(firstTime == false){win.loadURL('app://./index.html')}else{win.loadURL('app//./index.html')}
   }
 }
 
-async function extraWindow(){
-  const extra =  new BrowserWindow({
-    width: 500,
-    height: 700,
-    webPreferences:{
-      nodeIntegration:process.env.ELECTRON_NODE_INTEGRATION
-    }
-  })
-}
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
@@ -138,10 +129,45 @@ ipcMain.on('addtodb',function(event,value){
   return dbEntry(value.name,value.country)
 })
 ipcMain.on('removeItem',function(event,id){
-  
+
   db.read()
   db.get('users').find({id:id}).assign({active:false}).write()
   db.read()
   var value = db.get('users').find({id:id}).value()
   event.reply('returned3',value)
 })
+
+// Settings Database
+const adapter2 = new FileSync('settings.json')
+const settings = low(adapter2);
+settings.defaults({firstTime:true,stored:[]}).write();
+var stored = settings.get('stored');
+ipcMain.on('addToSettings',function(event,value){
+  settings.read();
+  settings.get('stored').push(value).write();
+  settings.read()
+  event.reply('settings',settings.get('stored').value())
+
+})
+ipcMain.on('bringSettings',function(event,value){
+  settings.read()
+  event.reply('bringed',settings.get('stored').value())
+})
+function init(){
+  firstTime = settings.find('firsTime').value();
+
+  if(firstTime == false){
+    return 'app://./index.html'
+  }
+  else{
+    return 'app://./first.html'
+  }
+}
+
+function addStored(){
+  arguments.forEach(element => {
+    stored.push(element).write();
+    settings.read()
+  });
+  return true
+}

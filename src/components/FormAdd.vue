@@ -1,5 +1,5 @@
 <template>
-  <div class='add'>
+  <div class='FormAdd'>
     <form v-on:submit.prevent action="">
       <div>
         <vs-input label-placeholder='Name' v-model="name" type="text" name="name2" id="name2"/>
@@ -17,6 +17,7 @@
 import store from '@/store/index.js'
 
 export default {
+name:'FormAdd',
 store:store,
 data(){return{name:'',country:''}},
 methods:{

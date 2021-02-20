@@ -7,6 +7,7 @@ Vue.config.productionTip = false
 Vue.use(Vuesax)
 import 'vuesax/dist/vuesax.css'
 import 'material-icons/iconfont/material-icons.css';
+
 new Vue({
   router,
   store,
