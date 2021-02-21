@@ -10,9 +10,9 @@
     </div>
 </template>
 
-<script>
+<script >
 import store from '@/store/index.js'
-import _ from 'lodash'
+//import _ from 'lodash'
 
 export default {
   name: 'FormQuerry',
@@ -21,7 +21,8 @@ export default {
     return{name:'',
     country:'',
     values:"",
-    mvalues:[]
+    mvalues:[],
+    active:true
     }
   },
   mounted(){
@@ -42,7 +43,7 @@ export default {
       e.forEach(element => {
        myobj[_.camelCase(element.id)] = element.value
       });
-      //console.log(myobj)
+      console.log(myobj)
       e = null
     },
   }

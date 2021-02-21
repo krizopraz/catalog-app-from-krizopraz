@@ -2,15 +2,11 @@
   "firstTime": true,
   "stored": [
     {
-      "catagoryName": "aasdsad",
+      "catagoryName": "ürün adı",
       "value": 2
     },
     {
-      "catagoryName": "asdsadsada",
-      "value": 2
-    },
-    {
-      "catagoryName": "dd",
+      "catagoryName": "ürün katagorisi",
       "value": 2
     }
   ]

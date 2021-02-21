@@ -1,5 +1,5 @@
 'use strict'
-var _ = require('lodash')
+//var _ = require('lodash')
 import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -83,7 +83,7 @@ if (isDevelopment) {
 // ##################################################################### //
 // ##################################################################### //
 
-const lodashId = require('lodash-id')
+//const lodashId = require('lodash-id')
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync("db.json")

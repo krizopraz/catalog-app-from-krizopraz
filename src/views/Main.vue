@@ -1,7 +1,13 @@
 <template>
   <div class="search">
-        <form-querry/>
-        <form-add/>
+        <vs-row vs-type='flex' vs-justfiy='center' vs-align='center'>
+          <vs-col vs-type='flex' vs-justify='center' vs-align='center' vs-w='6'>
+            <form-querry/>
+          </vs-col>
+          <vs-col vs-type='flex ' vs-justify='center' vs-align='center' vs-w='6'>
+            <form-add/>
+          </vs-col>
+        </vs-row>
         <search-result/>
   </div>
 </template>
