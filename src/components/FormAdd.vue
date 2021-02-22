@@ -24,11 +24,13 @@ methods:{
      var myobj = new Object
       var e = this.$el.getElementsByTagName('input')
       e.forEach(element => {
-        console.log(element.id)
+        //console.log(element.id)
        myobj[_.camelCase(element.id)] = element.value
+       //myobj.active = true
       });
+      console.log("formADd:"+myobj)
       console.log(myobj)
-      e = null
+      store.commit('addToDatabase',myobj)
   }
 },computed:{
   catagories:function(){

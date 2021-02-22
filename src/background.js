@@ -88,8 +88,35 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync("db.json")
 const db = low(adapter)
+db.defaults({stored:[],products:[]}).write()
+var stored = db.get('stored');
+ipcMain.on('addToSettings',function(event,value){
+  db.read();
+  db.get('stored').push(value).write();
+  db.read()
+  event.reply('settings',db.get('stored').value())
+
+})
+ipcMain.on('bringSettings',function(event,value){
+  db.read()
+  event.reply('bringed',db.get('stored').value())
+})
+ipcMain.on('bringData',function(event,value){
+  db.read()
+  event.reply('bringedData',db.get('product').value())
+})
+
+function addStored(){
+  arguments.forEach(element => {
+    stored.push(element).write();
+    db.read()
+  });
+  return true
+}
+
+//
 //._.mixin(lodashId)
-db.defaults({users:[]}).write()
+
 db.read()
 function dbId(){
    db.read()
@@ -97,23 +124,23 @@ function dbId(){
    db.read()
    return count+1
 }
-function dbEntry(arg1,arg2){
+function dbEntry(value){
    db.read()
+   var checked = _.omitBy(value,_.isEmpty)
+   checked.active = true
    var itemid = dbId()
-   if (!_.isEmpty(arg1) || !_.isEmpty(arg2)) {
-     db.get('users').push({id:itemid,name:arg1,country:arg2,active:true}).write()
-     db.read()
-   }
+    db.get('products').push(checked).write()
+
 
 }
-function dbQuerry(arg1,arg2) {
+function dbQuerry(value) {
    db.read()
-   var mobject = {active:true}
-   var sobject = {name:arg1,country:arg2}
-   var checked = _.omitBy(sobject,_.isEmpty)
-   var filtered = _.merge(mobject,checked)
-   if(_.isEmpty(filtered)){}
-   else{return db.get('users').filter(filtered).value()}
+   var checked = _.omitBy(value,"")
+   checked['active'] = true
+   if(checked == {}){db.get('products').value()}
+   else{
+     return db.get('products').filter(checked).value()
+    }
 
 }
 
@@ -121,12 +148,12 @@ ipcMain.handle('create-id', async (event)=>{return dbId()})
 
 
 ipcMain.on('querry',function(event,value){
-  event.reply('returned1',value.country)
-  var result = dbQuerry(value.name,value.country)
+  event.reply('returned1',value)
+  var result = dbQuerry(value)
   event.reply('clear-value',result)
 })
 ipcMain.on('addtodb',function(event,value){
-  return dbEntry(value.name,value.country)
+  return dbEntry(value)
 })
 ipcMain.on('removeItem',function(event,id){
 
@@ -137,37 +164,3 @@ ipcMain.on('removeItem',function(event,id){
   event.reply('returned3',value)
 })
 
-// Settings Database
-const adapter2 = new FileSync('settings.json')
-const settings = low(adapter2);
-settings.defaults({firstTime:true,stored:[]}).write();
-var stored = settings.get('stored');
-ipcMain.on('addToSettings',function(event,value){
-  settings.read();
-  settings.get('stored').push(value).write();
-  settings.read()
-  event.reply('settings',settings.get('stored').value())
-
-})
-ipcMain.on('bringSettings',function(event,value){
-  settings.read()
-  event.reply('bringed',settings.get('stored').value())
-})
-function init(){
-  firstTime = settings.find('firsTime').value();
-
-  if(firstTime == false){
-    return 'app://./index.html'
-  }
-  else{
-    return 'app://./first.html'
-  }
-}
-
-function addStored(){
-  arguments.forEach(element => {
-    stored.push(element).write();
-    settings.read()
-  });
-  return true
-}

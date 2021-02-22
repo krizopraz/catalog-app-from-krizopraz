@@ -41,10 +41,14 @@ export default {
       var myobj = new Object
       var e = this.$el.getElementsByTagName('input')
       e.forEach(element => {
-       myobj[_.camelCase(element.id)] = element.value
+       if(element.value != ""){
+         myobj[_.camelCase(element.id)] = element.value
+         //console.log('I changed ite')
+       }
       });
       console.log(myobj)
       e = null
+      store.commit('addToSearch',myobj)
     },
   }
 }

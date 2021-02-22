@@ -46,7 +46,7 @@ export default {
   },
   computed:{
     catagories:function(){
-      //store.commit("returnSettings")
+      store.commit("returnSettings")
       return this.$store.state.settings
     }
   },

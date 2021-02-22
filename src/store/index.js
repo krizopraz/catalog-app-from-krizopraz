@@ -10,20 +10,24 @@ export default new Vuex.Store({
     addSettings:[]
   },
   mutations: {
-    addToSearch(state,iValue){
-      //console.table(iValue)
-      //console.log('addToSearch has been completed')
-      ipcRenderer.send('querry',iValue)
+    addToSearch(state,value){
+      console.table(value)
+      console.log('addToSearch has been completed')
+      ipcRenderer.send('querry',value)
+      ipcRenderer.on('returned1',(event,arg)=>{console.log("returned1 ");console.log(arg)})
+      //ipcRenderer.on('returned7',(event,arg)=>{console.log(arg)})
       ipcRenderer.on('clear-value',(event,arg)=>{
-        //console.table(arg)
-        //console.log(arg)
+        console.log("clear-value "+arg)
+        console.log(arg)
+        console.table(arg)
+        console.table("##############")
         state.returnitems =arg
-        //console.log(state.returnitems)
+        console.log(state.returnitems)
       })
     },
-    addToDatabase(state,iValue){
+    addToDatabase(state,value){
       //console.log(iValue)
-      ipcRenderer.send('addtodb',iValue)
+      ipcRenderer.send('addtodb',value)
 
       //console.log('additems completed has been completed')
     },
@@ -55,6 +59,13 @@ export default new Vuex.Store({
       ipcRenderer.on('bringed',(event,ans)=>{
         //console.table(ans)
         state.settings=ans
+      })
+    },
+    returnData(state){
+      ipcRenderer.send('bringData',"")
+      ipcRenderer.on('bringedData',(event,ans)=>{
+        //console.table(ans)
+        state.data=ans
       })
     }
 },
