@@ -1,5 +1,6 @@
  <template>
     <div class="formquerry">
+      <h1>Search</h1>
       <form v-on:submit='itemSender' v-on:submit.prevent="" action="">
             <div v-for='(element,index) in this.catagories' :key="index">
               <vs-input :placeholder='element.catagoryName' :id='element.catagoryName'  :value='element.content' v-model='element.content' v-if="element.value == 2"/>

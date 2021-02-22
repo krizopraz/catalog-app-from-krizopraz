@@ -2,12 +2,13 @@
   <div class='FormAdd'>
     <form @submit.prevent action="">
       <div>
+        <h1>Add</h1>
         <div v-for='(element,index) in this.catagories' :key="index">
               <vs-input :placeholder='element.catagoryName' :class='element.catagoryName' :id='element.catagoryName'  :value='element.contentadd' v-model='element.contentadd' v-if="element.value == 2"/>
                 <!--<vs-upload v-else-if="element.value ==1" />-->
           </div>
       </div>
-      <vs-button v-on:click='addDb' type="filled">Ekle</vs-button>
+      <vs-button color=blue icon=add_circle v-on:click='addDb' type="filled">Add Value</vs-button>
     </form>
   </div>
 </template>
@@ -28,8 +29,9 @@ methods:{
        myobj[_.camelCase(element.id)] = element.value
        //myobj.active = true
       });
-      console.log("formADd:"+myobj)
-      console.log(myobj)
+       e.value=null
+      //console.log("formADd:"+myobj)
+      //console.log(myobj)
       store.commit('addToDatabase',myobj)
   }
 },computed:{
