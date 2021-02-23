@@ -1,4 +1,7 @@
 # inventory-app
-TR:Katalaog/Envanter Uygulaması Vue.js-Electron.js-Lowdb birleşimi Betada
-ENG:Catalog/Inventory App Vue.js-Electron.js-Lowdb combination in Beta
+TR:Katalaog/Envanter |
+ENG:Catalog/Inventory App
+#
+#Used Packages
+Electron.Js , Vue.js , Lowdb from Typicode https://github.com/typicode/lowdb
 #
